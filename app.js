@@ -4,9 +4,10 @@ import bodyParser from 'body-parser'
 import logger from 'morgan'
 import mongoose from 'mongoose'
 import bb from 'express-busboy'
+import SourceMapSupport from 'source-map-support'
 
 // import routes
-import routes from './routes/router.server.route'
+import routes from './routes/users.server.route'
 
 // set up app with express
 const app = express()
@@ -32,9 +33,10 @@ const port = process.env.PORT || 3001
 
 // connect to database
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/mern-app', {
-    useMongoClient: true
-})
+mongoose.connect('mongodb://localhost/mern-app')
+
+// add source map support
+SourceMapSupport.install()
 
 app.use('/api', routes)
 
